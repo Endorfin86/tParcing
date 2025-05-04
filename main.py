@@ -1,4 +1,4 @@
-import os, time, re, asyncio
+import os, time, re, asyncio, tempfile
 from io import BytesIO
 from datetime import datetime
 
@@ -23,6 +23,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
+
+posting = True
 
 class LinkStates(StatesGroup):
     waiting_for_link = State()
@@ -82,9 +84,14 @@ def getImages(urlOnArticle):
 
 #Получаем видео статьи
 def getVideos(urlOnArticle):
+
     # Настройка Selenium
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Запуск в фоновом режиме (без GUI)
+    chrome_options.add_argument('--no-sandbox')   
+    chrome_options.add_argument('--disable-dev-shm-usage')    
+    user_data_dir = tempfile.mkdtemp()    
+    chrome_options.add_argument(f'--user-data-dir={user_data_dir}')
     driver = webdriver.Chrome(options=chrome_options)
 
     try:
@@ -364,7 +371,8 @@ async def start_posting():
 
 #Запускаем основную функцию
 async def main(_):
-    asyncio.create_task(start_posting())
+    if posting:
+        asyncio.create_task(start_posting())
     print(f"{getCurrentTime()} Бот запущен")   
 
 if __name__ == "__main__":
