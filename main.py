@@ -364,7 +364,7 @@ async def start_posting():
 
 #Запускаем основную функцию
 async def main(_):
-    asyncio.create_task(start_posting())
+    #asyncio.create_task(start_posting())
     print(f"{getCurrentTime()} Бот запущен")   
 
 if __name__ == "__main__":
