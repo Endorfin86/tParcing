@@ -368,5 +368,4 @@ async def main(_):
     print(f"{getCurrentTime()} Бот запущен")   
 
 if __name__ == "__main__":
-	executor.start_polling(dp, skip_updates=True, on_startup=main)
-
+    executor.start_polling(dp, skip_updates=True, on_startup=main)
