@@ -333,8 +333,8 @@ async def addPostOnLink(link):
 @dp.message_handler(Command("postlink"))
 async def cmd_postlink(message: types.Message):
     if message.from_user.username == 'endrfn866':	
-        await message.answer("Пожалуйста, отправьте ссылку.")
-        await LinkStates.waiting_for_link.set()
+	await message.answer("Пожалуйста, отправьте ссылку.")
+	await LinkStates.waiting_for_link.set()
     else:
 	await message.answer("⚠️ Функция доступна только для администации")
 
